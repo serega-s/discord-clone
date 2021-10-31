@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
-import { createNewServer, getServerCategories } from "../services/servers"
+import { createNewServer, getServerCategories } from "../../services/servers"
 
 const CreateServer = () => {
   const [picture, setPicture] = useState()

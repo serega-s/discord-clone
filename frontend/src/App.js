@@ -1,48 +1,38 @@
-import axios from "axios"
-import React, { useState } from "react"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
-import Login from "./components/auth/Login"
-import Register from "./components/auth/Register"
-import Home from "./components/Home"
-import CreateServer from "./components/server/CreateServer"
-import ExploreServers from "./components/server/ExploreServers"
-import PrivateRoute from "./components/utils/PrivateRoute"
-import { UserContext } from "./components/utils/UserContext"
+import React, { lazy, Suspense, useState } from "react"
+import { BrowserRouter as Router, Switch } from "react-router-dom"
+import Loader from "./components/Loader"
+import { UserContext } from "./context/UserContext/UserContext"
+import PrivateRoute from "./routes/PrivateRoute"
+import ProtectedRoutes from "./routes/ProtectedRoutes"
+import PublicRoute from "./routes/PublicRoute"
+import { getToken } from "./services/auth"
+
+const Login = lazy(() => import("./pages/Login/Login"))
+const Register = lazy(() => import("./pages/Register/Register"))
+const Footer = lazy(() => import("./parts/Footer"))
+const Header = lazy(() => import("./parts/Header"))
 
 const App = () => {
-  const getToken = () => {
-    const token = localStorage.getItem("token")
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = "Token " + token
-      return true
-    } else {
-      delete axios.defaults.headers.common["Authorization"]
-      return false
-    }
-  }
-
   const [isAuth, setIsAuth] = useState(getToken())
 
   return (
     <UserContext.Provider value={{ isAuth, setIsAuth }}>
       <Router>
-        <Switch>
-          <PrivateRoute exact path="/" authed={isAuth} component={Home} />
-          <PrivateRoute
-            exact
-            path="/createserver"
-            authed={isAuth}
-            component={CreateServer}
-          />
-          <PrivateRoute
-            exact
-            path="/explore"
-            authed={isAuth}
-            component={ExploreServers}
-          />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-        </Switch>
+        <Suspense fallback={<Loader />}>
+          <Header />
+          <Switch>
+            <PublicRoute path="/login" component={Login} authed={isAuth} />
+            <PublicRoute
+              path="/register"
+              component={Register}
+              authed={isAuth}
+            />
+            <PrivateRoute path="/" authed={isAuth}>
+              <ProtectedRoutes />
+            </PrivateRoute>
+          </Switch>
+          <Footer />
+        </Suspense>
       </Router>
     </UserContext.Provider>
   )

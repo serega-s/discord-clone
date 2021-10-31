@@ -1,17 +1,12 @@
 import React from "react"
 
-const Message = ({
-  chat,
-  allowedAudioExtensions,
-  allowedImageExtensions,
-  allowedVideoExtensions,
-}) => {
+const Message = ({ chat, isAdmin, handleDeleteMsg }) => {
   // Allowed file types
   const allowedImageExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.svg)$/i
   const allowedVideoExtensions =
     /(\.mp4|\.ogg|\.mkv|\.avi|\.mov|\.webm|\.swf|\.wmv|\.flv)$/i
   const allowedAudioExtensions = /(\.mp3|\.aac|\.wav|\.flac|\.alac|\.dsd)$/i
-  
+
   return (
     <li className="pt-3" key={chat.id}>
       <article className="media">
@@ -23,8 +18,7 @@ const Message = ({
         <div className="media-content">
           <div className="content">
             <p>
-              <strong>{chat.user.username}</strong>
-              <small>{chat.date}</small>
+              <strong>{chat.user.username}</strong> | <small>{chat.date}</small>
             </p>
             <p>{chat.body}</p>
             {allowedAudioExtensions.exec(chat.file) ? (

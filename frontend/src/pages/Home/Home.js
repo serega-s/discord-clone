@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
-import Footer from "../layout/Footer"
-import Header from "../layout/Header"
-import Server from "../layout/Server"
-import ServersNav from "../layout/ServersNav"
-import { getSideNavServers } from "./services/servers"
+
+
+import Server from "../Server/Server"
+import ServersNav from "../Server/components/ServersNav"
+import { getSideNavServers } from "../../services/servers"
 
 const Home = () => {
   const [sideNavServers, setSideNavServers] = useState([])
@@ -19,7 +19,7 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
+      
       <div className="columns">
         <div className="column is-1">
           <ServersNav
@@ -40,7 +40,7 @@ const Home = () => {
           />
         </div>
       </div>
-      <Footer />
+      
     </div>
   )
 }

@@ -3,9 +3,8 @@ import {
   getServerCategories,
   getServersInCategory,
   getServersInSearch,
-} from "../services/servers"
+} from "../../services/servers"
 
-getServerCategories
 
 const ExploreServers = () => {
   const [serverCategory, setServerCategory] = useState([])

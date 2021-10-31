@@ -1,8 +1,8 @@
 import React, { useContext } from "react"
 import { useHistory } from "react-router"
 import { Link } from "react-router-dom"
-import { logout } from "../components/services/auth"
-import { UserContext } from "../components/utils/UserContext"
+import { UserContext } from "../context/UserContext/UserContext"
+import { logout } from "../services/auth"
 
 const Header = () => {
   const history = useHistory()

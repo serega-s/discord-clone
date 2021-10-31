@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { registerUser } from "../services/auth"
-import { UserContext } from "../utils/UserContext"
+import { registerUser } from "../../services/auth"
+import { UserContext } from "../../context/UserContext/UserContext"
 
 const Register = () => {
   const [username, setUsername] = useState()

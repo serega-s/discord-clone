@@ -6,8 +6,8 @@ import {
   setAxiosAuthToken,
   setToken,
   unsetCurrentUser,
-} from "../services/auth"
-import { UserContext } from "../utils/UserContext"
+} from "../../services/auth"
+import { UserContext } from "../../context/UserContext/UserContext"
 
 const Login = () => {
   const history = useHistory()

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react"
-import AddCategoryModal from "../components/modals/AddCategoryModal"
-import AddChannelModal from "../components/modals/AddChannelModal"
+import AddCategoryModal from "./components/AddCategoryModal"
+import AddChannelModal from "./components/AddChannelModal"
 import {
   createNewCategory,
   createNewChannel,
   getServerData,
-} from "../components/services/servers"
-import DataNotLoaded from "./DataNotLoaded"
-import MainChat from "./MainChat"
+} from "../../services/servers"
+import DataNotLoaded from "../../components/DataNotLoaded"
+import MainChat from "../Chat/MainChat"
 
 const Server = ({
   servers,
