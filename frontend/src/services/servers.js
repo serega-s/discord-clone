@@ -85,3 +85,9 @@ export const createNewChannel = (server_id, category_id, title, topic) => {
 
   return dataPromise
 }
+
+export const banFromServer = (user_id, server_id) => {
+  const promise = axios.delete(`api/server/ban/${user_id}/${server_id}/`)
+  const dataPromise = promise.then((response) => response.data)
+  return dataPromise
+}

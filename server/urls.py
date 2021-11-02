@@ -9,5 +9,6 @@ urlpatterns = [
     path('server/getserverscategory/<int:pk>/', views.ServersInCategoryAPI.as_view()),
     path('server/searchserver/', views.ServerSearch.as_view()),
     path('server/createcategorychannel/', views.category_channels_create),
-    path('server/createtextchannel/', views.text_channels_create)
+    path('server/createtextchannel/', views.text_channels_create),
+    path('server/ban/<int:pk>/<uuid:server_id>/', views.ban_api),
 ]

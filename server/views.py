@@ -1,13 +1,12 @@
-import re
-
 from django.db.models import Q
 from django.http import Http404
-from django.shortcuts import get_object_or_404, render
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from rest_framework import filters, generics, permissions, status
-from rest_framework.decorators import (api_view, parser_classes,
+from rest_framework.decorators import (api_view,
                                        permission_classes)
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.parsers import JSONParser, MultiPartParser
+from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -131,3 +130,18 @@ def text_channels_create(request):
             category_channel.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+@api_view(['DELETE'])
+@permission_classes([permissions.IsAuthenticated])
+def ban_api(request, pk, server_id):
+    server = Server.objects.get(id=server_id)
+    user = User.objects.get(pk=pk)
+    serializer = UserSerializer(user)
+
+    if request.user in server.moderators.all() or request.user == server.user:
+        server.members.remove(user)
+        return Response(status=status.HTTP_202_ACCEPTED)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react"
-import AddCategoryModal from "./components/AddCategoryModal"
-import AddChannelModal from "./components/AddChannelModal"
+import DataNotLoaded from "../../components/DataNotLoaded"
 import {
   createNewCategory,
   createNewChannel,
   getServerData,
 } from "../../services/servers"
-import DataNotLoaded from "../../components/DataNotLoaded"
 import MainChat from "../Chat/MainChat"
+import AddCategoryModal from "./components/AddCategoryModal"
+import AddChannelModal from "./components/AddChannelModal"
+import Members from "./components/Members"
 
 const Server = ({
   servers,
@@ -99,10 +100,11 @@ const Server = ({
           />
 
           <div className="columns pt-1">
-            <div className="column is-3">
+            <div className="column is-2">
               <div className="card">
                 <div className="card-image">
-                  <figure className="image is-4by3">
+                  {/* is-4by3 */}
+                  <figure className="image">
                     <img src={serverDetail.banner} />
                   </figure>
                 </div>
@@ -173,12 +175,18 @@ const Server = ({
                 server={serverDetail.id}
               />
             </div>
-            <div className="column is-2"></div>
+            <div className="column is-2">
+              <Members
+                members={serverDetail.members}
+                isAdmin={isAdmin}
+                server={serverDetail.id}
+              />
+            </div>
           </div>
         </main>
       ) : (
         <DataNotLoaded>
-          Click on any server to get information about that.
+          Click on any server to get the information about that.
         </DataNotLoaded>
       )}
     </>

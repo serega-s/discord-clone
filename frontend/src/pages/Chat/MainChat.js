@@ -124,7 +124,7 @@ const MainChat = ({ textChannel, chatData, setChatData, isAdmin, server }) => {
         </div>
       ) : (
         <DataNotLoaded>
-          Click on any channel to get information about that.
+          Click on any channel to get the information about that.
         </DataNotLoaded>
       )}
     </>
