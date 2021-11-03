@@ -39,7 +39,11 @@ const Header = () => {
             <Link className="navbar-item" title="Home" to="/">
               <i className="material-icons">home</i>
             </Link>
-            <Link to="/" className="navbar-item" title="Notifications">
+            <Link
+              to="/notifications"
+              className="navbar-item"
+              title="Notifications"
+            >
               <i className="material-icons">notifications</i>
             </Link>
             <Link to="/" className="navbar-item" title="Me">

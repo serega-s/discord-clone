@@ -16,6 +16,11 @@ const routes = [
     component: lazy(() => import("../pages/Server/ExploreServers")),
     exact: true,
   },
+  {
+    path: "notifications",
+    component: lazy(() => import("../pages/Notifications/Notifications")),
+    exact: true,
+  },
 ]
 
 export default routes

@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'frontend',
     'server',
     'authy',
-    'chat'
+    'chat',
+    'notification'
 ]
 
 REST_FRAMEWORK = {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import DataNotLoaded from "../../components/DataNotLoaded"
+import { sendNewInvitation } from "../../services/notifications"
 import {
   createNewCategory,
   createNewChannel,
@@ -9,6 +10,7 @@ import MainChat from "../Chat/MainChat"
 import AddCategoryModal from "./components/AddCategoryModal"
 import AddChannelModal from "./components/AddChannelModal"
 import Members from "./components/Members"
+import UserInvitationModal from "./components/UserInvitationModal"
 
 const Server = ({
   servers,
@@ -28,6 +30,8 @@ const Server = ({
   const [titleNewCh, setTitleNewCh] = useState()
   const [topicNewCh, setTopicNewCh] = useState()
   const [ctgForNewChannel, setCtgForNewChannel] = useState()
+
+  const [username, setUsername] = useState()
 
   useEffect(() => {
     if (activeServer) {
@@ -79,6 +83,13 @@ const Server = ({
     })
   }
 
+  const handleSubmitInvitation = (e) => {
+    e.preventDefault()
+    sendNewInvitation(username, serverDetail.id).then((response) => {
+      modalClose("invite-user-modal")
+    })
+  }
+
   const handleCLick = (parameter, e) => {
     setTextChannel(parameter)
   }
@@ -98,7 +109,12 @@ const Server = ({
             setTopicNewCh={setTopicNewCh}
             setTitleNewCh={setTitleNewCh}
           />
-
+          <UserInvitationModal
+            handleSubmitInvitation={handleSubmitInvitation}
+            setUsername={setUsername}
+            username={username}
+            modalClose={modalClose}
+          />
           <div className="columns pt-1">
             <div className="column is-2">
               <div className="card">
@@ -113,7 +129,12 @@ const Server = ({
                   <p className="subtitle is-6">{serverDetail.description}</p>
                 </div>
                 <div className="card-footer">
-                  <a className="card-footer-item">Invite People</a>
+                  <a
+                    onClick={modalTrigger.bind(this, "invite-user-modal")}
+                    className="card-footer-item"
+                  >
+                    Invite People
+                  </a>
                   <a className="card-footer-item">Leave Server</a>
                 </div>
               </div>

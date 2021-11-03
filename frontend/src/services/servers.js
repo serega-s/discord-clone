@@ -63,24 +63,24 @@ export const getServerData = (id) => {
 }
 
 export const createNewCategory = (server_id, title) => {
-  const post_body = {
+  const data = {
     server_id: server_id,
     title: title,
   }
-  const promise = axios.post("api/server/createcategorychannel/", post_body)
+  const promise = axios.post("api/server/createcategorychannel/", data)
   const dataPromise = promise.then((response) => response.data)
 
   return dataPromise
 }
 
 export const createNewChannel = (server_id, category_id, title, topic) => {
-  const post_body = {
+  const data = {
     server_id: server_id,
     title: title,
     category_id: category_id,
     topic: topic,
   }
-  const promise = axios.post("api/server/createtextchannel/", post_body)
+  const promise = axios.post("api/server/createtextchannel/", data)
   const dataPromise = promise.then((response) => response.data)
 
   return dataPromise
