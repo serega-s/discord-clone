@@ -11,4 +11,5 @@ urlpatterns = [
     path('server/createcategorychannel/', views.category_channels_create),
     path('server/createtextchannel/', views.text_channels_create),
     path('server/ban/<int:pk>/<uuid:server_id>/', views.ban_api),
+    path('server/leaveserver/<uuid:server_id>/', views.leave_server_api)
 ]

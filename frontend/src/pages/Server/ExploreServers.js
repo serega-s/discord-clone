@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react"
+import { requestToJoinServer } from "../../services/notifications"
 import {
   getServerCategories,
   getServersInCategory,
   getServersInSearch,
 } from "../../services/servers"
-
 
 const ExploreServers = () => {
   const [serverCategory, setServerCategory] = useState([])
@@ -39,6 +39,18 @@ const ExploreServers = () => {
     })
   }
 
+  const handleRequestToJoin = (parameter) => {
+    requestToJoinServer(parameter).then((response) => {
+      console.log("Request To Join Server")
+    })
+
+    // if (activeCategoryCSS) {
+    //   document.getElementById(activeCategoryCSS).classList.remove("is-active")
+    // }
+    // document.getElementById(parameter).classList.add("is-active")
+    // setActiveCategoryCSS(parameter)
+  }
+
   return (
     <main>
       <div className="container pt-5">
@@ -55,7 +67,7 @@ const ExploreServers = () => {
                       <input
                         className="input"
                         type="text"
-                        placeholder="Find interesting server"
+                        placeholder="Find any interesting server"
                         onChange={(e) => setSearchBody(e.target.value)}
                       />
                     </p>
@@ -116,7 +128,15 @@ const ExploreServers = () => {
                           </div>
 
                           <div className="card-footer">
-                            <a className="card-footer-item">Request Join</a>
+                            <a
+                              onClick={handleRequestToJoin.bind(
+                                this,
+                                server.id
+                              )}
+                              className="card-footer-item"
+                            >
+                              Request Join
+                            </a>
                           </div>
                         </div>
                       </div>

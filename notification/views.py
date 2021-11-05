@@ -31,7 +31,7 @@ class NotificationAPI(APIView):
 
     def get(self, request, formt=None):
         notifications = Notification.objects.filter(to_user=request.user)
-        serializer = NotificationSerializer(notifications)
+        serializer = NotificationSerializer(notifications, many=True)
 
         return Response(serializer.data)
 
@@ -61,13 +61,16 @@ class NotificationAPI(APIView):
 def accept_invitation(request, pk):
     notification = Notification.objects.get(id=pk)
     server = Server.objects.get(pk=notification.to_server.id)
-
     if request.user == notification.to_user:
-        server.members.add(notification.to_user)
-        server.save()
-        notification.delete()
-
-        return Response(status=status.HTTP_201_CREATED)
+        if notification.notification_type == 1:
+            server.members.add(notification.to_user)
+            server.save()
+            notification.delete()
+        else:
+            server.members.add(notification.from_user)
+            server.save()
+            notification.delete()
+        return Response(status=status.HTTP_200_OK)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -77,10 +80,8 @@ def request_to_join_server(request):
     serializer = NotificationSerializer(data=request.data)
     to_server = Server.objects.get(pk=request.data['to_server'])
     to_user = User.objects.get(pk=to_server.user.id)
-
-    if serializer.is_valid():
+    if serializer.is_valid(raise_exception=True):
         serializer.save(to_user=to_user, to_server=to_server,
                         from_user=request.user)
-
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

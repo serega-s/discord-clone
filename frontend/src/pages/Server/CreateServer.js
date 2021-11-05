@@ -20,17 +20,11 @@ const CreateServer = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    const serverCreated = createNewServer(
-      picture,
-      banner,
-      title,
-      description,
-      formCategory
+    createNewServer(picture, banner, title, description, formCategory).then(
+      (response) => {
+        history.push("/")
+      }
     )
-
-    if (serverCreated) {
-      history.push("/")
-    }
   }
 
   return (

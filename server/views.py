@@ -1,10 +1,9 @@
+from django.contrib.auth.models import User
 from django.db.models import Q
 from django.http import Http404
-from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from rest_framework import filters, generics, permissions, status
-from rest_framework.decorators import (api_view,
-                                       permission_classes)
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.parsers import MultiPartParser
 from rest_framework.response import Response
@@ -46,7 +45,11 @@ class ServerAPI(APIView):
         serializer = ServerSerializer(data=request.data)
 
         if serializer.is_valid():
-            serializer.save(user=request.user, server_category=category)
+            server = serializer.save(
+                user=request.user, server_category=category)
+            server.members.add(request.user)
+            server.moderators.add(request.user)
+            server.save()
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -132,7 +135,6 @@ def text_channels_create(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 @api_view(['DELETE'])
 @permission_classes([permissions.IsAuthenticated])
 def ban_api(request, pk, server_id):
@@ -145,3 +147,12 @@ def ban_api(request, pk, server_id):
         return Response(status=status.HTTP_202_ACCEPTED)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+@permission_classes([permissions.IsAuthenticated])
+def leave_server_api(request, server_id):
+    server = Server.objects.get(id=server_id)
+    server.members.remove(request.user)
+
+    return Response(status=status.HTTP_202_ACCEPTED)

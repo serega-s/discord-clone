@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react"
 import { Link, useHistory } from "react-router-dom"
+import { UserContext } from "../../context/UserContext/UserContext"
 import {
   getCurrentUser,
   loginUser,
@@ -7,7 +8,6 @@ import {
   setToken,
   unsetCurrentUser,
 } from "../../services/auth"
-import { UserContext } from "../../context/UserContext/UserContext"
 
 const Login = () => {
   const history = useHistory()
@@ -32,6 +32,21 @@ const Login = () => {
       })
   }
 
+  // const showHidePassword = (el, inp) => {
+  //   const input = document.getElementById(inp)
+  //   const target = document.getElementById(el)
+
+  //   console.log(target)
+
+  //   if (input.type == "password") {
+  //     target.textContent = "visibility_off"
+  //     input.type = "text"
+  //   } else {
+  //     target.textContent = "visibility"
+  //     input.type = "password"
+  //   }
+  // }
+
   return (
     <div className="container pt-5">
       <div className="columns is-centered">
@@ -55,16 +70,26 @@ const Login = () => {
                   </p>
                 </div>
                 <div className="field">
-                  <p className="control has-icons-left">
+                  <p className="control has-icons-left has-icons-right">
                     <input
                       className="input"
                       type="password"
                       placeholder="Password"
+                      id="password-input"
                       onChange={(e) => setPassword(e.target.value)}
                     />
                     <span className="icon is-small is-left">
                       <i className="material-icons">lock</i>
                     </span>
+                    {/* <span className="icon is-right">
+                      <i
+                        className="material-icons"
+                        id="show-hide-icon"
+                        onClick={showHidePassword.bind(this, "password-input")}
+                      >
+                        visibility
+                      </i>
+                    </span> */}
                   </p>
                 </div>
                 <div className="field">

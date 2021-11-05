@@ -35,17 +35,10 @@ export const createNewServer = (
   formData.append("description", description)
   formData.append("category", category)
 
-  axios
-    .post("api/server/createserver/", formData)
-    .then((response) => {
-      console.log(formData)
-      console.log(response)
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+  const promise = axios.post("api/server/createserver/", formData)
+  const dataPromise = promise.then((response) => response.data)
 
-  return true
+  return dataPromise
 }
 
 export const getSideNavServers = () => {
@@ -89,5 +82,13 @@ export const createNewChannel = (server_id, category_id, title, topic) => {
 export const banFromServer = (user_id, server_id) => {
   const promise = axios.delete(`api/server/ban/${user_id}/${server_id}/`)
   const dataPromise = promise.then((response) => response.data)
+
+  return dataPromise
+}
+
+export const leaveServer = (server_id) => {
+  const promise = axios.delete(`api/server/leaveserver/${server_id}/`)
+  const dataPromise = promise.then((response) => response.data)
+
   return dataPromise
 }

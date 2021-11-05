@@ -5,11 +5,14 @@ import {
   createNewCategory,
   createNewChannel,
   getServerData,
+  leaveServer,
 } from "../../services/servers"
 import MainChat from "../Chat/MainChat"
 import AddCategoryModal from "./components/AddCategoryModal"
 import AddChannelModal from "./components/AddChannelModal"
 import Members from "./components/Members"
+import ServerDescCard from "./components/ServerDescCard"
+import ServerFuncsCard from "./components/ServerFuncsCard"
 import UserInvitationModal from "./components/UserInvitationModal"
 
 const Server = ({
@@ -35,6 +38,7 @@ const Server = ({
 
   useEffect(() => {
     if (activeServer) {
+      setDataLoaded(false)
       getServerData(activeServer).then((response) => {
         setServerDetail(response.data)
 
@@ -90,6 +94,13 @@ const Server = ({
     })
   }
 
+  const handleLeaveServer = (e) => {
+    e.preventDefault()
+    leaveServer(serverDetail.id).then((response) => {
+      location.reload()
+    })
+  }
+
   const handleCLick = (parameter, e) => {
     setTextChannel(parameter)
   }
@@ -117,74 +128,16 @@ const Server = ({
           />
           <div className="columns pt-1">
             <div className="column is-2">
-              <div className="card">
-                <div className="card-image">
-                  {/* is-4by3 */}
-                  <figure className="image">
-                    <img src={serverDetail.banner} />
-                  </figure>
-                </div>
-                <div className="card-content">
-                  <p className="title is-4">{serverDetail.title}</p>
-                  <p className="subtitle is-6">{serverDetail.description}</p>
-                </div>
-                <div className="card-footer">
-                  <a
-                    onClick={modalTrigger.bind(this, "invite-user-modal")}
-                    className="card-footer-item"
-                  >
-                    Invite People
-                  </a>
-                  <a className="card-footer-item">Leave Server</a>
-                </div>
-              </div>
-
-              <br />
-
-              <div className="card">
-                <div className="card-content">
-                  <div className="content">
-                    <button
-                      onClick={modalTrigger.bind(this, "add-category-modal")}
-                      className="button is-small is-primary is-rounded"
-                    >
-                      <span className="icon is-small">
-                        <i className="material-icons">add</i>
-                      </span>
-                      <span>Category</span>
-                    </button>
-                    {serverDetail.categories.map((category) => (
-                      <aside className="menu" key={category.id}>
-                        <p className="menu-label">{category.title}</p>
-
-                        <button
-                          onClick={modalTrigger.bind(
-                            this,
-                            "add-channel-modal",
-                            category.id
-                          )}
-                          className="button is-small is-primary is-rounded"
-                        >
-                          <span className="icon is-small">
-                            <i className="material-icons">add</i>
-                          </span>
-                          <span>Channel</span>
-                        </button>
-
-                        <ul className="menu-list">
-                          {category.text_channels.map((text_channel) => (
-                            <li key={text_channel.id}>
-                              <a onClick={handleCLick.bind(this, text_channel)}>
-                                {text_channel.title}
-                              </a>
-                            </li>
-                          ))}
-                        </ul>
-                      </aside>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              <ServerDescCard
+                handleLeaveServer={handleLeaveServer}
+                modalTrigger={modalTrigger}
+                serverDetail={serverDetail}
+              />
+              <ServerFuncsCard
+                handleCLick={handleCLick}
+                modalTrigger={modalTrigger}
+                serverDetail={serverDetail}
+              />
             </div>
 
             <div className="column is-7">

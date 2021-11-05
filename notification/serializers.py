@@ -1,7 +1,9 @@
-from rest_framework import serializers
-from .models import Notification
 from authy.serializers import UserSerializer
+from rest_framework import serializers
 from server.serializers import ServerSerializer
+
+from .models import Notification
+
 
 class NotificationSerializer(serializers.ModelSerializer):
     to_user = UserSerializer(read_only=True)
@@ -11,3 +13,4 @@ class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
         fields = '__all__'
+        depth = 1
