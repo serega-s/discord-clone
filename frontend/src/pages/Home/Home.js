@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react"
-
-
-import Server from "../Server/Server"
-import ServersNav from "../Server/components/ServersNav"
 import { getSideNavServers } from "../../services/servers"
+import ServersNav from "../Server/components/ServersNav"
+import Server from "../Server/Server"
 
 const Home = () => {
   const [sideNavServers, setSideNavServers] = useState([])
@@ -19,7 +17,6 @@ const Home = () => {
 
   return (
     <div>
-      
       <div className="columns">
         <div className="column is-1">
           <ServersNav
@@ -40,7 +37,6 @@ const Home = () => {
           />
         </div>
       </div>
-      
     </div>
   )
 }
