@@ -26,7 +26,7 @@ const Header = () => {
             className="navbar-burger"
             aria-label="menu"
             aria-expanded="false"
-            data-target="navbarBasicExample"
+            data-target="navbarTarget"
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -34,7 +34,7 @@ const Header = () => {
           </a>
         </div>
 
-        <div id="navbarBasicExample" className="navbar-menu">
+        <div id="navbarTarget" className="navbar-menu">
           <div className="navbar-end">
             <Link className="navbar-item" title="Home" to="/">
               <i className="material-icons">home</i>
@@ -46,7 +46,7 @@ const Header = () => {
             >
               <i className="material-icons">notifications</i>
             </Link>
-            <Link to="/" className="navbar-item" title="Me">
+            <Link to="/profile" className="navbar-item" title="Me">
               <i className="material-icons">person</i>
             </Link>
             <div className="navbar-item">

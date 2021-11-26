@@ -21,6 +21,10 @@ const routes = [
     component: lazy(() => import("../pages/Notifications/Notifications")),
     exact: true,
   },
+  {
+    path: "profile",
+    component: lazy(() => import('../pages/Profile/Profile'))
+  }
 ]
 
 export default routes

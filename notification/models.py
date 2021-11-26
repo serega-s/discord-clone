@@ -16,3 +16,7 @@ class Notification(models.Model):
     to_server = models.ForeignKey(
         Server, on_delete=models.CASCADE, related_name='noti_to_server')
     notification_type = models.IntegerField(choices=NOTIFICATION_TYPES)
+
+
+    def __str__(self) -> str:
+        return f'To {self.to_user} By {self.from_user}'
