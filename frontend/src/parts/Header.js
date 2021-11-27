@@ -16,10 +16,12 @@ const Header = () => {
         aria-label="main navigation"
       >
         <div className="navbar-brand">
-          <a className="navbar-item">
+          <div className="navbar-item">
             <img src="/static/img/discord.png" width="50" />
-            <span className="title is-5 has-text-light">DiscordClone</span>
-          </a>
+            <Link to="/" className="title is-5 has-text-light">
+              DiscordClone
+            </Link>
+          </div>
 
           <a
             role="button"

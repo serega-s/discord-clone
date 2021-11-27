@@ -84,14 +84,13 @@ const Profile = () => {
                   </div>
                   <div className="content">{profile.profile_info}</div>
                 </div>
-                <div className="card-footer">
+                <div className="card-footer has-text-centered">
                   <a
                     onClick={modalTrigger.bind(this, "update-profile-modal")}
                     className="card-footer-item"
                   >
                     Update Profile
                   </a>
-                  <a className="card-footer-item"></a>
                 </div>
               </div>
             </div>
