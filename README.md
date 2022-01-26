@@ -1,4 +1,6 @@
-# GanarCRM
+# Discord clone
+
+My attempt to build a simple, not big discord clone
 
 ![avatar](discord_clone_imgs/discord_clone-1.png)
 ![avatar](discord_clone_imgs/discord_clone-2.png)
