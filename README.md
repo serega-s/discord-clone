@@ -1,9 +1,9 @@
 # GanarCRM
 
 ![avatar](discord_clone_imgs/discord_clone-1.png)
-![avatar](discord_clone_imgs/discord_clone-1.png)
-![avatar](discord_clone_imgs/discord_clone-1.png)
-![avatar](discord_clone_imgs/discord_clone-1.png)
+![avatar](discord_clone_imgs/discord_clone-2.png)
+![avatar](discord_clone_imgs/discord_clone-3.png)
+![avatar](discord_clone_imgs/discord_clone-4.png)
 
 and some pages...
 
